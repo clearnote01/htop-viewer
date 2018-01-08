@@ -1,0 +1,9 @@
+# Dependency directory
+node_modules
+server/venv
+
+# Source maps
+*.js.map
+
+# Files marked with gitigx
+*gitigx*
