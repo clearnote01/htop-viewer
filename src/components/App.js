@@ -9,56 +9,26 @@ const propTypes = {
 };
 
 function App({ children, routes }) {
-  function generateMapMenu() {
-    let path = '';
-
-    function nextPath(route) {
-      path += (
-        (path.slice(-1) === '/' ? '' : '/') +
-        (route.path === '/' ? '' : route.path)
-      );
-      return path;
-    }
-
-    return (
-      routes.filter(route => route.mapMenuTitle)
-        .map((route, index, array) => (
-          <span key={index}>
-            <Interactive
-              as={Link}
-              {...s.link}
-              to={nextPath(route)}
-            >{route.mapMenuTitle}</Interactive>
-            {(index + 1) < array.length && ' / '}
-          </span>
-        ))
-    );
-  }
-
-
   return (
     <div style={s.root}>
-      <h1 style={s.title}>Single Page Apps for GitHub Pages</h1>
+      <h1 style={s.title}>My current useless stats</h1>
       <Interactive
         as="a"
-        href="https://github.com/rafrex/spa-github-pages"
+        href="https://github.com/clearnote01"
         style={s.repoLink}
         {...s.link}
-      >https://github.com/rafrex/spa-github-pages</Interactive>
-      <nav style={s.mapMenu}>
-        {generateMapMenu()}
-      </nav>
+      >https://github.com/clearnot01</Interactive>
       {children}
       <div style={s.creditLine}>
         <Interactive
           as="a"
-          href="http://www.rafaelpedicini.com"
+          href="http://github.com/clearnote01"
           interactiveChild
           focus={{}}
           touchActive={{}}
           touchActiveTapOnly
         >
-          Code and concept by <span {...s.childLink}>Rafael Pedicini</span>
+          This belongs to <span {...s.childLink}>Utkarsh Raj</span>
         </Interactive>
       </div>
     </div>

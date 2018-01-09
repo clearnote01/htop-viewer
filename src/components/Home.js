@@ -1,47 +1,150 @@
-import React from 'react';
-import Interactive from 'react-interactive';
-import { Link } from 'react-router';
+import axios from 'axios';
+import React, { Component } from 'react';
 import s from '../styles/home.style';
 
-function Home() {
-  const repoReadmeLink = text => (
-    <Interactive
-      as="a"
-      {...s.link}
-      href="https://github.com/rafrex/spa-github-pages#readme"
-    >{text}</Interactive>
-  );
+//const URLS = {
+  //htop: 'http://localhost:5000/api/htop',
+  //ls: 'http://localhost:5000/api/ls',
+  //ps: 'http://localhost:5000/api/psauxf',
+//};
 
-  return (
-    <div>
-      <p style={s.p}>
-        This is an example single page app built
-        with React and React&nbsp;Router using {' '}
-        {s.code('browserHistory')}. Navigate with the links below and
-        refresh the page or copy/paste the url to test out the redirect
-        functionality deployed to overcome GitHub&nbsp;Pages incompatibility
-        with single page apps (like this one).
-      </p>
-      <p style={s.p}>
-        Please see the {repoReadmeLink('repo readme')} for instructions on how to
-        use this boilerplate to deploy your own single page app using GitHub Pages.
-      </p>
-      <div style={s.pageLinkContainer}>
-        <Interactive
-          as={Link}
-          {...s.link}
-          to="/example"
-        >Example page</Interactive>
+const URLS = {
+  htop: 'https://a72396d6.ngrok.io/api/htop',
+  ls: 'https://a72396d6.ngrok.io/api/ls',
+  ps: 'https://a72396d6.ngrok.io/api/psauxf',
+};
+class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      htopData: 'Loading...',
+      lsData: 'Loading...',
+      psData: 'Loading...',
+      currentCount: 10,
+    };
+  }
+  componentDidMount() {
+    this.intervalId = setInterval(this.timer.bind(this), 1000);
+    this.getHtop();
+    this.getLs();
+    this.getPs();
+  }
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+  getHtop() {
+    axios.get(URLS.htop, {
+      crossdomain: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        console.log('setting state\n\n');
+        this.setState({
+          htopData: data,
+        });
+      });
+  }
+  getLs() {
+    axios.get(URLS.ls, {
+      crossdomain: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        console.log('setting state\n\n');
+        this.setState({
+          lsData: data,
+        });
+      });
+  }
+  getPs() {
+    axios.get(URLS.ps, {
+      crossdomain: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    })
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        console.log('setting state\n\n');
+        this.setState({
+          psData: data,
+        });
+      });
+  }
+  timer() {
+    if (this.state.currentCount < 1) {
+      this.setState({
+        currentCount: 10,
+      });
+      this.getLs();
+      this.getHtop();
+      this.getPs();
+    } else {
+      console.log('Count: ', this.state.currentCount-1);
+      this.setState({
+        currentCount: this.state.currentCount - 1,
+      });
+    }
+  }
+  commandSetter(data) {
+    return (
+      <div>
+        <div
+          style={{
+            backgroundColor: '',
+            border: '2px',
+            borderStyle: 'solid',
+            fontSize: '12px',
+            overflowY: 'scroll',
+            overflowX: 'scroll',
+            width: '50vw',
+            height: '60vh',
+          }}
+          className="content" dangerouslySetInnerHTML={{ __html: data }}
+        />
+        <hr />
       </div>
-      <div style={s.pageLinkContainer}>
-        <Interactive
-          as={Link}
-          {...s.link}
-          to="/example/two-deep?field1=foo&field2=bar#boom!"
-        >Example two deep with query and hash</Interactive>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <pre
+          style={{
+            position: 'fixed',
+            left: '-60%',
+            color: 'black',
+            fontSize: '1em',
+            top: '5%',
+          }}
+        >
+          Refresh in: <span>{this.state.currentCount}</span>
+        </pre>
+        <p style={s.p}>
+          This is pretty useless. htop
+          { this.commandSetter(this.state.htopData) }
+        </p>
+        <p style={s.p}>
+          Even more useless things data over here. ls
+          { this.commandSetter(this.state.lsData) }
+        </p>
+        <p style={s.p}>
+          You did not think I could go even worse. ps auxf
+          { this.commandSetter(this.state.psData) }
+        </p>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Home;
