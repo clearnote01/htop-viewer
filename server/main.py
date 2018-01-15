@@ -11,6 +11,7 @@ def htop_getter():
     with open('test.html','r') as f:
         data = f.read()
         data = data.replace('color:black','color:white')
+        data = data.replace('background-color:white','background-color:black')
     return data 
 
 @app.route('/api/psauxf')

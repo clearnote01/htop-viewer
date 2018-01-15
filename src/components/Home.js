@@ -2,17 +2,17 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import s from '../styles/home.style';
 
-//const URLS = {
-  //htop: 'http://localhost:5000/api/htop',
-  //ls: 'http://localhost:5000/api/ls',
-  //ps: 'http://localhost:5000/api/psauxf',
-//};
-
 const URLS = {
-  htop: 'https://a72396d6.ngrok.io/api/htop',
-  ls: 'https://a72396d6.ngrok.io/api/ls',
-  ps: 'https://a72396d6.ngrok.io/api/psauxf',
+  htop: 'http://localhost:5000/api/htop',
+  ls: 'http://localhost:5000/api/ls',
+  ps: 'http://localhost:5000/api/psauxf',
 };
+
+//const URLS = {
+  //htop: 'https://db6b4298.ngrok.io/api/htop',
+  //ls: 'https://db6b4298.ngrok.io/api/ls',
+  //ps: 'https://db6b4298.ngrok.io/api/psauxf',
+//};
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -100,7 +100,8 @@ class Home extends Component {
       <div>
         <div
           style={{
-            backgroundColor: '',
+            backgroundColor: 'black',
+            color: 'white',
             border: '2px',
             borderStyle: 'solid',
             fontSize: '12px',
@@ -122,7 +123,7 @@ class Home extends Component {
         <pre
           style={{
             position: 'fixed',
-            left: '-60%',
+            left: '-40%',
             color: 'black',
             fontSize: '1em',
             top: '5%',
