@@ -13,7 +13,7 @@
   "author": "Rafael Pedicini <code@rafrex.com>",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.21.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-interactive": "^0.4.0",
